@@ -95,15 +95,6 @@ function makeActive() {
     }
 }
 
-// if the viewport isnt on any section, navbar should return to its original state
-function resetNavBar() {
-    const navLinks = document.querySelectorAll('.menu__link');
-    for (const link of navLinks) {
-        link.style.color = '#000000';
-        link.style.fontWeight = 'normal';
-    }
-}
-
 // Set sections as active
 document.addEventListener('scroll', function () {
         makeActive();
