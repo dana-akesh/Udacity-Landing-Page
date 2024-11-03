@@ -57,21 +57,54 @@ const VALUE = 150;
 function makeActive() {
     for (const section of pageSections) {
         const box = section.getBoundingClientRect();
-        //Find a value that works best, but 150 seems to be a good start.
+        // Find a value that works best, but 150 seems to be a good start.
         if (box.top <= VALUE && box.bottom >= VALUE) {
             section.classList.add('active');
+
             // change the heading color
             const heading = section.querySelector('h2');
             heading.style.color = '#000000';
+
+            // change the background color
+            section.style.background = "linear-gradient(0deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%)";
+            section.style.backdropFilter = "blur(10px)";
+            section.style.border = "1px solid rgba(255, 255, 255, 0.3)";
+            section.style.borderRadius = "10px";
+
+            // highlight the active link in the navigation bar with style
+            const navLinks = document.querySelectorAll('.menu__link');
+            for (const link of navLinks) {
+                if (link.hash === `#${section.id}`) {
+                    link.style.color = '#4eac85';
+                    link.style.fontWeight = 'bold';
+                } else {
+                    link.style.color = '#000000';
+                    link.style.fontWeight = 'normal';
+                }
+            }
         } else {
             section.classList.remove('active');
+
             // change the heading color
             const heading = section.querySelector('h2');
             heading.style.color = '#ffffff';
+
+            // change the background color
+            section.style.background = "linear-gradient(0deg, rgba(136,203,171,1) 0%, rgba(0,13,60,1) 100%)";
         }
     }
 }
 
+// if the viewport isnt on any section, navbar should return to its original state
+function resetNavBar() {
+    const navLinks = document.querySelectorAll('.menu__link');
+    for (const link of navLinks) {
+        link.style.color = '#000000';
+        link.style.fontWeight = 'normal';
+    }
+}
+
+// Set sections as active
 document.addEventListener('scroll', function () {
         makeActive();
     }
@@ -90,4 +123,3 @@ function scrollToClick() {
 
 // Scroll to section on link click
 scrollToClick();
-
